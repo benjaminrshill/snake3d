@@ -50,14 +50,14 @@ function moveSnake() {
 }
 
 function catchSides() {
-    if (direction === 1 && snake[0] % 10 === width) {
+    if (direction === 1 && snake[0] % (width + 1) === width) {
         snake.unshift(snake[0] - width);
-    } else if (direction === -1 && snake[0] % 10 === 0) {
+    } else if (direction === -1 && snake[0] % (width + 1) === 0) {
         snake.unshift(snake[0] + width);
-    } else if (direction === -(width+1) && snake[0] <= 9) {
-        snake.unshift(snake[0] + 90);
-    } else if (direction === width + 1 && snake[0] >= 90) {
-        snake.unshift(snake[0] - 90);
+    } else if (direction === -(width + 1) && snake[0] <= width) {
+        snake.unshift(snake[0] + width * (width + 1));
+    } else if (direction === width + 1 && snake[0] >= width * (width + 1)) {
+        snake.unshift(snake[0] - width * (width + 1));
     } else {
         snake.unshift(snake[0] + direction);
     }

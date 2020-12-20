@@ -3,7 +3,7 @@ html {
     justify-content: center;
     align-items: center;
     margin: auto;
-    min-height: 85vh;
+    min-height: 95vh;
     font-family: sans-serif;
     font-size: 2vh;
     text-align: center;
@@ -15,33 +15,33 @@ html {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
     grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-    width: 80vh;
-    height: 80vh;
-    perspective: 60vh;
+    width: 80vmin;
+    height: 80vmin;
+    perspective: 60vmin;
 }
 
 .cube {
-    width: 8vh;
-    height: 8vh;
+    width: 8vmin;
+    height: 8vmin;
     position: relative;
     transform-style: preserve-3d;
-    transform: translateZ(-50px);
+    transform: translateZ(-4vmin);
 }
 
 .face {
     position: absolute;
-    width: 8vh;
-    height: 8vh;
+    width: 8vmin;
+    height: 8vmin;
     border: 1px solid #4ebd55;
     background: rgba(39, 80, 41, 0.1);
 }
 
-.face0  { transform: rotateY(  0deg) translateZ(4vh); }    /*front*/
-.face1  { transform: rotateY( 90deg) translateZ(4vh); }    /*right*/
-.face2  { transform: rotateY(180deg) translateZ(4vh); }    /*back*/
-.face3  { transform: rotateY(-90deg) translateZ(4vh); }    /*left*/
-.face4  { transform: rotateX( 90deg) translateZ(4vh); }    /*top*/
-.face5  { transform: rotateX(-90deg) translateZ(4vh); }    /*bottom*/
+.face0  { transform: rotateY(  0deg) translateZ(4vmin); }    /*front*/
+.face1  { transform: rotateY( 90deg) translateZ(4vmin); }    /*right*/
+.face2  { transform: rotateY(180deg) translateZ(4vmin); }    /*back*/
+.face3  { transform: rotateY(-90deg) translateZ(4vmin); }    /*left*/
+.face4  { transform: rotateX( 90deg) translateZ(4vmin); }    /*top*/
+.face5  { transform: rotateX(-90deg) translateZ(4vmin); }    /*bottom*/
 
 
 .snake {
