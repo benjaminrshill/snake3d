@@ -97,10 +97,10 @@ function catchSides() {
         snake.unshift(snake[0] - 9);
     } else if (direction === -1 && snake[0] % 10 === 0) {
         snake.unshift(snake[0] + 9);
-    } else if (direction === -10 && (snake[0] <= 9 || (snake[0] <= 109 && snake[0] > 99))) {
-        snake.unshift(snake[0] + 90);
     } else if (direction === 10 && ((snake[0] >= 90 && snake[0] < 100) || (snake[0] > 189))) {
         snake.unshift(snake[0] - 90);
+    } else if (direction === -10 && (snake[0] <= 9 || (snake[0] <= 109 && snake[0] > 99))) {
+        snake.unshift(snake[0] + 90);
     } else if (direction === 100 && snake[0] > 99) {
         snake.unshift(snake[0] - 100);
     } else if (direction === -100 && snake[0] < 100) {
@@ -146,11 +146,11 @@ function control(e) {
         case "ArrowDown":
             direction = width + 1;
             break;
-        case "a":
-            direction = 100;
-            break;
         case "z":
             direction = -100;
+            break;
+        case "a":
+            direction = 100;
             break;
     }
 }

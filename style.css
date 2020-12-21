@@ -35,9 +35,13 @@ html {
     z-index: 1;
 }
 
-
 .layer1 {
     transform: translateZ(-8vmin);
+}
+
+.layer2 {
+    z-index: -1;
+    transform: translateZ(-16vmin);
 }
 
 .layer0 .face {
@@ -46,7 +50,12 @@ html {
 }
 
 .layer1 .face {
-    border: 1px dotted #45ABC4;
+    border: 1px dotted #45c4c0;
+    background: rgba(20, 117, 134, 0.1);
+}
+
+.layer2 .face {
+    border: 1px dotted #3172d0;
     background: rgba(20, 61, 134, 0.1);
 }
 
@@ -70,12 +79,12 @@ html {
 .face4  { transform: rotateX( 90deg) translateZ(4vmin); }    /*top*/
 .face5  { transform: rotateX(-90deg) translateZ(4vmin); }    /*bottom*/
 
-
 .layer0 .snake {
-    background: rgba(69, 196, 77, 0.7);
+    background: rgba(61, 186, 82, 0.7);
 }
+
 .layer1 .snake {
-    background: rgba(69, 171, 196, 0.7);
+    background: rgba(70, 203, 176, 0.7);
 }
 
 .apple {
