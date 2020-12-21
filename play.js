@@ -1,17 +1,19 @@
 let container = document.querySelector('.container');
 let scoreDisplay = document.querySelector('.scoreDisplay');
-let appleIndex = 0;
 let width = 9;
 let snake = [2, 1, 0];
 let direction = 1;
-let score = 0;
 let speed = 0.9;
+let appleIndex = 0;
+let score = 0;
 let intervalTime = 1000;
 let interval = 0;
+let cubes;
 document.addEventListener('keydown', control);
 createBoard();
-let cubes = document.querySelectorAll('.cube');
-startGame();
+randomApple();
+makeSnake();
+makeInterval();
 
 function createBoard() {
     for (let i = 0; i < 2; i++) {
@@ -31,32 +33,22 @@ function createBoard() {
             }
         }
     }
-}
-
-function startGame() {
-    randomApple();
-    snake.forEach(index => {
-        cubes[index].childNodes.forEach(face => face.classList.add('snake'));
-    });
-    interval = setInterval(moveSnake, intervalTime);
+    cubes = document.querySelectorAll('.cube');
 }
 
 function restart() {
-    clearInterval(interval);
     container.classList.remove('gameOver');
-    let apple = document.querySelector('.apple');
-    cubes[appleIndex].removeChild(apple);
-    randomApple();
-    snake.forEach(index => {
-        cubes[index].childNodes.forEach(face => face.classList.remove('snake'));
-    });
     snake = [2, 1, 0];
     direction = 1;
+    score = 0;
+    scoreDisplay.textContent = score;
+    killApple();
+    randomApple();
+    killSnake();
+    makeSnake();
+    clearInterval(interval);
     intervalTime = 1000;
-    snake.forEach(index => {
-        cubes[index].childNodes.forEach(face => face.classList.add('snake'));
-    });
-    interval = setInterval(moveSnake, intervalTime);
+    makeInterval();
 }
 
 function moveSnake() {
@@ -65,10 +57,39 @@ function moveSnake() {
         return clearInterval(interval);
     }
     let tail = snake.pop();
-    cubes[tail].childNodes.forEach(face => face.classList.remove('snake'));
+    snakeTail(tail);
     catchSides();
-    cubes[snake[0]].childNodes.forEach(face => face.classList.add('snake'));
+    snakeHead();
     eatApple(tail);
+}
+
+function makeSnake() {
+    snake.forEach(index => {
+        cubes[index].childNodes.forEach(face => face.classList.add('snake'));
+    });
+}
+
+function snakeTail(tail) {
+    cubes[tail].childNodes.forEach(face => face.classList.remove('snake'));
+}
+
+function snakeHead() {
+    cubes[snake[0]].childNodes.forEach(face => face.classList.add('snake'));
+}
+
+function killSnake() {
+    snake.forEach(index => {
+        cubes[index].childNodes.forEach(face => face.classList.remove('snake'));
+    });
+}
+
+function makeInterval() {
+    interval = setInterval(moveSnake, intervalTime);
+}
+
+function killApple() {
+    let apple = document.querySelector('.apple');
+    cubes[appleIndex].removeChild(apple);
 }
 
 function catchSides() {
@@ -91,15 +112,14 @@ function catchSides() {
 
 function eatApple(tail) {
     if (cubes[snake[0]].children.length > 6) {
-        let apple = document.querySelector('.apple');
         snake.push(tail);
-        cubes[appleIndex].removeChild(apple);
+        killApple();
         randomApple();
         score++;
         scoreDisplay.textContent = score;
         clearInterval(interval);
         intervalTime = intervalTime * speed;
-        interval = setInterval(moveSnake, intervalTime);
+        makeInterval();
     }
 }
 
