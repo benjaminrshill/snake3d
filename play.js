@@ -4,6 +4,7 @@ let width = 9;
 let appleIndex = 0;
 let snake = [2,1,0];
 let direction = 1;
+let layer = 0;
 let score = 0;
 let speed = 0.9;
 let intervalTime = 1000;
@@ -14,15 +15,21 @@ createBoard();
 startGame();
 
 function createBoard() {
-    for (let i = 0; i < 100; i++) {
-        let cube = document.createElement('div');
-        cube.classList.add('cube');
-        container.appendChild(cube);
-        for (let i = 0; i < 6; i++) {
-            let face = document.createElement('div');
-            face.classList.add('face');
-            face.classList.add('face' + i);
-            cube.appendChild(face);
+    for (let i = 0; i < 2; i++) {
+        let layer = document.createElement('div');
+        layer.classList.add('layer');
+        layer.classList.add('layer' + i);
+        container.appendChild(layer);
+        for (let i = 0; i < 100; i++) {
+            let cube = document.createElement('div');
+            cube.classList.add('cube');
+            layer.appendChild(cube);
+            for (let i = 0; i < 6; i++) {
+                let face = document.createElement('div');
+                face.classList.add('face');
+                face.classList.add('face' + i);
+                cube.appendChild(face);
+            }
         }
     }
 }
@@ -37,27 +44,28 @@ function startGame() {
 }
 
 function moveSnake() {
-    let cubes = document.querySelectorAll('.container > div');
+    if ((new Set(snake)).size !== snake.length || layer > 1 || layer < 0) {
+        container.classList.add('gameOver');
+        return clearInterval(interval);
+    }
+    let cubes = document.querySelectorAll('.cube');
     let tail = snake.pop();
     cubes[tail].childNodes.forEach(face => face.classList.remove('snake'));
     catchSides();
     cubes[snake[0]].childNodes.forEach(face => face.classList.add('snake'));
-    if ((new Set(snake)).size !== snake.length) {
-        container.classList.add('gameOver');
-        return clearInterval(interval);
-    }
+
     eatApple(cubes, tail);
 }
 
 function catchSides() {
-    if (direction === 1 && snake[0] % (width + 1) === width) {
-        snake.unshift(snake[0] - width);
-    } else if (direction === -1 && snake[0] % (width + 1) === 0) {
-        snake.unshift(snake[0] + width);
-    } else if (direction === -(width + 1) && snake[0] <= width) {
-        snake.unshift(snake[0] + width * (width + 1));
-    } else if (direction === width + 1 && snake[0] >= width * (width + 1)) {
-        snake.unshift(snake[0] - width * (width + 1));
+    if (direction === 1 && snake[0] % 10 === 9) {
+        snake.unshift(snake[0] - 9);
+    } else if (direction === -1 && snake[0] % 10 === 0) {
+        snake.unshift(snake[0] + 9);
+    } else if (direction === -10 && (snake[0] <= 9 || (snake[0] <= 109 && snake[0] > 99))) {
+        snake.unshift(snake[0] + 90);
+    } else if (direction === 10 && ((snake[0] >= 90 && snake[0] < 100) || (snake[0] > 189))) {
+        snake.unshift(snake[0] - 90);
     } else {
         snake.unshift(snake[0] + direction);
     }
@@ -100,6 +108,14 @@ function control(e) {
             break;
         case "ArrowDown":
             direction = width + 1;
+            break;
+        case "a":
+            direction = 100;
+            layer++;
+            break;
+        case "z":
+            direction = -100;
+            layer--;
             break;
     }
 }

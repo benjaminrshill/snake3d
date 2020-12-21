@@ -13,6 +13,17 @@ html {
 
 .container {
     display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
+    width: 80vmin;
+    height: 80vmin;
+    perspective: 60vmin;
+}
+
+.layer {
+    grid-column: 1;
+    grid-row: 1;
+    display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
     grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
     width: 80vmin;
@@ -20,20 +31,36 @@ html {
     perspective: 60vmin;
 }
 
+.layer0 {
+    z-index: 1;
+}
+
+
+.layer1 {
+    transform: translateZ(-8vmin);
+}
+
+.layer0 .face {
+    border: 1px dotted #3bb13f;
+    background: rgba(19, 109, 23, 0.1);
+}
+
+.layer1 .face {
+    border: 1px dotted #3991fd;
+    background: rgba(20, 61, 134, 0.1);
+}
+
 .cube {
     width: 8vmin;
     height: 8vmin;
     position: relative;
     transform-style: preserve-3d;
-    transform: translateZ(-4vmin);
 }
 
 .face {
     position: absolute;
     width: 8vmin;
     height: 8vmin;
-    border: 1px solid #4ebd55;
-    background: rgba(39, 80, 41, 0.1);
 }
 
 .face0  { transform: rotateY(  0deg) translateZ(4vmin); }    /*front*/
@@ -44,8 +71,11 @@ html {
 .face5  { transform: rotateX(-90deg) translateZ(4vmin); }    /*bottom*/
 
 
-.snake {
+.layer0 .snake {
     background: rgba(69, 196, 77, 0.7);
+}
+.layer1 .snake {
+    background: rgba(69, 111, 196, 0.7);
 }
 
 .apple {
