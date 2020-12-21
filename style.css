@@ -7,7 +7,7 @@ html {
     font-family: sans-serif;
     font-size: 2vh;
     text-align: center;
-    color: #eeeeee;
+    color: #3991fd;
     background: #000000;
 }
 
@@ -46,7 +46,7 @@ html {
 }
 
 .layer1 .face {
-    border: 1px dotted #3991fd;
+    border: 1px dotted #45ABC4;
     background: rgba(20, 61, 134, 0.1);
 }
 
@@ -75,7 +75,7 @@ html {
     background: rgba(69, 196, 77, 0.7);
 }
 .layer1 .snake {
-    background: rgba(69, 111, 196, 0.7);
+    background: rgba(69, 171, 196, 0.7);
 }
 
 .apple {
@@ -85,21 +85,29 @@ html {
     background: #ba2d2d;
     border: 2px solid #ff5555;
     border-radius: 100%;
-    animation: spin 30s infinite;
 }
 
 .scoreDisplay {
     position: fixed;
-    left: 0;
-    right: 0;
+    left: 40vw;
     bottom: 5vh;
+}
+
+.restart {
+    position: fixed;
+    left: 60vw;
+    bottom: 5vh;
+    width: 3vh;
+    height: 3vh;
+    padding: 0;
+    font-size: 3vh;
+    color: #3991fd;
+    line-height: 3vh;
+    background: none;
+    border: none;
+    border-radius: 100%;
 }
 
 .gameOver {
     background: #632020;
-}
-
-@keyframes spin {
-    from    { transform: rotateY(0deg); }
-    to      { transform: rotateY(360deg); }
 }
