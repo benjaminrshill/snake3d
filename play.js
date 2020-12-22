@@ -10,12 +10,12 @@ let intervalTime = 1000;
 let interval = 0;
 let cubes;
 document.addEventListener('keydown', control);
-createBoard();
-randomApple();
+makeBoard();
+makeApple();
 makeSnake();
 makeInterval();
 
-function createBoard() {
+function makeBoard() {
     for (let i = 0; i < 2; i++) {
         let layer = document.createElement('div');
         layer.classList.add('layer');
@@ -38,13 +38,13 @@ function createBoard() {
 
 function restart() {
     container.classList.remove('gameOver');
-    snake = [2, 1, 0];
     direction = 1;
     score = 0;
     scoreDisplay.textContent = score;
     killApple();
-    randomApple();
+    makeApple();
     killSnake();
+    snake = [2, 1, 0];
     makeSnake();
     clearInterval(interval);
     intervalTime = 1000;
@@ -69,6 +69,12 @@ function makeSnake() {
     });
 }
 
+function killSnake() {
+    snake.forEach(index => {
+        cubes[index].childNodes.forEach(face => face.classList.remove('snake'));
+    });
+}
+
 function snakeTail(tail) {
     cubes[tail].childNodes.forEach(face => face.classList.remove('snake'));
 }
@@ -77,14 +83,17 @@ function snakeHead() {
     cubes[snake[0]].childNodes.forEach(face => face.classList.add('snake'));
 }
 
-function killSnake() {
-    snake.forEach(index => {
-        cubes[index].childNodes.forEach(face => face.classList.remove('snake'));
-    });
-}
-
 function makeInterval() {
     interval = setInterval(moveSnake, intervalTime);
+}
+
+function makeApple() {
+    appleIndex = Math.floor(Math.random() * cubes.length);
+    if (!snake.includes(appleIndex)) {
+        let apple = document.createElement('div');
+        cubes[appleIndex].appendChild(apple);
+        apple.classList.add('apple');
+    } else makeApple();
 }
 
 function killApple() {
@@ -114,22 +123,13 @@ function eatApple(tail) {
     if (cubes[snake[0]].children.length > 6) {
         snake.push(tail);
         killApple();
-        randomApple();
+        makeApple();
         score++;
         scoreDisplay.textContent = score;
         clearInterval(interval);
         intervalTime = intervalTime * speed;
         makeInterval();
     }
-}
-
-function randomApple() {
-    appleIndex = Math.floor(Math.random() * cubes.length);
-    if (!snake.includes(appleIndex)) {
-        let apple = document.createElement('div');
-        cubes[appleIndex].appendChild(apple);
-        apple.classList.add('apple');
-    } else randomApple();
 }
 
 function control(e) {
