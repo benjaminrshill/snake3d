@@ -1,14 +1,14 @@
 let container = document.querySelector('.container');
 let scoreDisplay = document.querySelector('.scoreDisplay');
 let width = 9;
-let snake = [2, 1, 0];
+let cubes;
+let snake = [];
 let direction = 1;
 let speed = 0.9;
 let appleIndex = 0;
 let score = 0;
 let intervalTime = 1000;
 let interval = 0;
-let cubes;
 document.addEventListener('keydown', control);
 makeBoard();
 makeApple();
@@ -44,7 +44,6 @@ function restart() {
     killApple();
     makeApple();
     killSnake();
-    snake = [2, 1, 0];
     makeSnake();
     clearInterval(interval);
     intervalTime = 1000;
@@ -64,6 +63,7 @@ function moveSnake() {
 }
 
 function makeSnake() {
+    snake = [2, 1, 0];
     snake.forEach(index => {
         cubes[index].childNodes.forEach(face => face.classList.add('snake'));
     });
