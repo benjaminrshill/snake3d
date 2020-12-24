@@ -1,5 +1,9 @@
 let container = document.querySelector('.container');
 let az = document.querySelector('.az');
+let up = document.querySelector('.up');
+let down = document.querySelector('.down');
+let left = document.querySelector('.left');
+let right = document.querySelector('.right');
 let scoreDisplay = document.querySelector('.scoreDisplay');
 let width = 9;
 let cubes;
@@ -223,3 +227,7 @@ document.addEventListener('touchstart', startTouch, false);
 document.addEventListener('touchmove', moveTouch, false);
 document.addEventListener('touchend', endTouch, false);
 az.addEventListener('click', goBack, false);
+up.addEventListener('click', goUp, false);
+down.addEventListener('click', goDown, false);
+left.addEventListener('click', goLeft, false);
+right.addEventListener('click', goRight, false);
