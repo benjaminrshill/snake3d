@@ -1,4 +1,5 @@
 let container = document.querySelector('.container');
+let az = document.querySelector('.az');
 let scoreDisplay = document.querySelector('.scoreDisplay');
 let width = 9;
 let cubes;
@@ -9,7 +10,14 @@ let appleIndex = 0;
 let score = 0;
 let intervalTime = 1000;
 let interval = 0;
-document.addEventListener('keydown', control);
+let paused = false;
+let initialX = 0;
+let initialY = 0;
+let moveX = 0;
+let moveY = 0;
+let finalX = 0;
+let finalY = 0;
+document.addEventListener('keydown', keys);
 makeBoard();
 makeApple();
 makeSnake();
@@ -87,6 +95,11 @@ function makeInterval() {
     interval = setInterval(moveSnake, intervalTime);
 }
 
+function pause() {
+    paused ? makeInterval() : clearInterval(interval);
+    paused = !paused;
+}
+
 function makeApple() {
     appleIndex = Math.floor(Math.random() * cubes.length);
     if (!snake.includes(appleIndex)) {
@@ -132,25 +145,81 @@ function eatApple(tail) {
     }
 }
 
-function control(e) {
+function goLeft() {
+    direction = -1;
+}
+
+function goRight() {
+    direction = 1;
+}
+
+function goUp() {
+    direction = 0 - (width + 1);
+}
+
+function goDown() {
+    direction = width + 1;
+}
+
+function goBack() {
+    direction = 100;
+}
+
+function keys(e) {
     switch (e.key) {
         case "ArrowLeft":
-            direction = -1;
+            goLeft();
             break;
         case "ArrowRight":
-            direction = 1;
+            goRight();
             break;
         case "ArrowUp":
-            direction = 0 - (width + 1);
+            goUp();
             break;
         case "ArrowDown":
-            direction = width + 1;
+            goDown();
             break;
         case "z":
-            direction = -100;
+            goBack();
             break;
         case "a":
-            direction = 100;
+            goBack();
+            break;
+        case "p":
+            pause();
             break;
     }
 }
+
+function startTouch(e) {
+    initialX = e.touches[0].clientX;
+    initialY = e.touches[0].clientY;
+}
+
+function moveTouch(e) {
+    if (initialX === 0 && initialY === 0) return;
+    moveX = e.touches[0].clientX;
+    moveY = e.touches[0].clientY;
+    finalX = initialX - moveX;
+    finalY = initialY - moveY;
+}
+
+function endTouch() {
+    if (finalX > 100 && finalX > finalY) {
+        goLeft();
+    } else if ( finalX < -100 && finalX < finalY) {
+        goRight();
+    } else if (finalY > 100 && finalY > finalX) {
+        goUp();
+    } else if (finalY < -100 && finalY < finalX) {
+        goDown();
+    }
+    initialX = 0;
+    moveX = 0;
+    finalX = 0;
+}
+
+document.addEventListener('touchstart', startTouch, false);
+document.addEventListener('touchmove', moveTouch, false);
+document.addEventListener('touchend', endTouch, false);
+az.addEventListener('click', goBack, false);

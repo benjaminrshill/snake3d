@@ -5,7 +5,7 @@ html {
     margin: auto;
     min-height: 95vh;
     font-family: sans-serif;
-    font-size: 2vh;
+    font-size: 3vmax;
     text-align: center;
     color: #3991fd;
     background: #000000;
@@ -88,35 +88,84 @@ html {
 }
 
 .apple {
-    width: 6vh;
-    height: 6vh;
+    width: 6vmin;
+    height: 6vmin;
     margin: auto;
     background: #ba2d2d;
     border: 2px solid #ff5555;
     border-radius: 100%;
 }
 
-.scoreDisplay {
+.az {
     position: fixed;
-    left: 40vw;
-    bottom: 5vh;
+    margin: auto;
+    width: 8vmax;
+    height: 8vmax;
+    background: #3991fd;
+    border-radius: 100%;
+    box-shadow: inset 0 0 20px 0 #132e50;
+}
+
+.dashboard {
+    position: fixed;
+    width: 5vmax;
+    height: 5vmax;
+    border: 1px solid #3991fd;
+    border-radius: 100%;
+}
+
+.scoreDisplay {
+    line-height: 5vmax;
 }
 
 .restart {
-    position: fixed;
-    left: 60vw;
-    bottom: 5vh;
-    width: 3vh;
-    height: 3vh;
     padding: 0;
-    font-size: 3vh;
+    font-size: 3vmax;
+    line-height: 0;
     color: #3991fd;
-    line-height: 3vh;
     background: none;
-    border: none;
-    border-radius: 100%;
 }
 
 .gameOver {
     background: #632020;
+}
+
+@media screen and (min-width: 800px) {
+    .az {
+        display: none;
+    }
+}
+
+@media screen and (orientation: landscape) {
+    .az {
+        top: 0;
+        bottom: 0;
+        left: 5vw;
+    }
+    .dashboard {
+        right: 5vw;
+    }
+    .scoreDisplay {
+        top: 40vh;
+    }
+    .restart {
+        top: 60vh;
+    }
+}
+
+@media screen and (orientation: portrait) {
+    .az {
+        bottom: 5vh;
+        left: 0;
+        right: 0;
+    }
+    .dashboard {
+        top: 3vh;
+    }
+    .scoreDisplay {
+        left: 30vw;
+    }
+    .restart {
+        right: 30vw;
+    }
 }
