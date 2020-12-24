@@ -49,6 +49,7 @@ function makeBoard() {
 }
 
 function restart() {
+    paused = false;
     container.classList.remove('gameOver');
     direction = 1;
     score = 0;
